@@ -1,0 +1,26 @@
+{
+  "name": "sistem-nilai-zero-trust",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sistem Nilai dengan Zero Trust Security (API Gateway sebagai PEP)",
+  "scripts": {
+    "seed": "node db/seed.js",
+    "dev": "concurrently -n gateway,nilai,transkrip \"node gateway/src/index.js\" \"node service-nilai/src/index.js\" \"node service-transkrip/src/index.js\"",
+    "audit": "node scripts/audit.js",
+    "test": "bash scripts/test-scenarios.sh"
+  },
+  "workspaces": [
+    "gateway",
+    "service-nilai",
+    "service-transkrip"
+  ],
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^13.0.3",
+    "concurrently": "^9.0.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "http-proxy-middleware": "^3.0.0",
+    "jsonwebtoken": "^9.0.2"
+  }
+}
