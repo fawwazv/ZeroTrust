@@ -38,11 +38,13 @@ function signServiceToken(clientId) {
 }
 
 // [ZT] Verify: return objek {ok, reason|payload} tanpa throw,
-// reason sesuai kode baku Tabel 5.5 (invalid_token / token_expired)
+// reason sesuai kode baku Tabel 5.5 (invalid_token / token_expired).
+// expectedTyp opsional: bila diisi, typ harus cocok; tanpa typ, hanya
+// tanda tangan + masa berlaku yang dicek (dipakai pipeline gateway).
 function verifyToken(token, expectedTyp) {
   try {
     const payload = jwt.verify(token, JWT_SECRET);
-    if (payload.typ !== expectedTyp) {
+    if (expectedTyp && payload.typ !== expectedTyp) {
       return { ok: false, reason: 'invalid_token' };
     }
     return { ok: true, payload };
